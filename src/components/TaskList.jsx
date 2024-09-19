@@ -144,7 +144,7 @@ const TaskList = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
-    navigate("/login");
+    navigate("/");
   };
 
   const renderPaginationButtons = () => (
