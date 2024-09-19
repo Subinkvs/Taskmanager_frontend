@@ -9,12 +9,18 @@ import TaskDetail from './components/TaskDetail';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // New loading state
 
   // Check if token exists in localStorage on component mount
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     setIsAuthenticated(!!token); // Convert token to boolean
+    setIsLoading(false); // Set loading to false after checking token
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Show loading message or spinner while checking authentication
+  }
 
   return (
     <Router>
@@ -31,9 +37,11 @@ function App() {
 
           {/* Login Route */}
           <Route
-            path="/login"
-            element={isAuthenticated ? <Navigate to="/tasks" /> : <Login setIsAuthenticated={setIsAuthenticated} />}
+             path="/login"
+             element={isAuthenticated ? <Navigate to="/tasks" /> : <Login setIsAuthenticated={setIsAuthenticated} />}
           />
+
+        
 
           {/* Task List Route (Protected) */}
           <Route
@@ -41,7 +49,8 @@ function App() {
             element={isAuthenticated ? <TaskList setIsAuthenticated={setIsAuthenticated} /> : <Navigate to="/login" />}
           />
 
-        <Route path="/task/:id" element={<TaskDetail />} />
+          {/* Task Detail Route */}
+          <Route path="/task/:id" element={<TaskDetail />} />
 
           {/* Redirect for all undefined paths */}
           <Route path="*" element={<Navigate to="/" />} />
