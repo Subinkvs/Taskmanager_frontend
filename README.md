@@ -21,6 +21,15 @@ This is a  frontend application for a task manager, built with React. It provide
 
 Clone the Repository
 ```sh
+git clone https://github.com/Subinkvs/Taskmanager_frontend.git
+```
+Directory
+
+```sh
+cd frontend
+```
+
+```sh
 cd frontend
 ```
 
